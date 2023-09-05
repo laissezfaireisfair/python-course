@@ -351,3 +351,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/python,windows,vim,pycharm+all,visualstudiocode,opencv,linux
+
+**/.idea/
