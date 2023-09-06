@@ -21,8 +21,8 @@ parser.add_argument('size', type=int, help='Size of sorted array')
 args = parser.parse_args()
 size = args.size
 
-alphabet = [0, 1]
-# alphabet = range(1000)
+# alphabet = [0, 1]
+alphabet = range(1000)
 values = rand.choices(alphabet, k=size)
 
 original_values_str = ', '.join([str(i) for i in values])
