@@ -24,10 +24,17 @@ def count_odds_and_even() -> (int, int):
                        (0, 0))
 
 
-def fib(n: int) -> int:
+def _fib(pre_prev: int, prev: int, i: int, n: int):
+    s = pre_prev + prev
+    if i == n:
+        return s
+    return _fib(prev, s, i + 1, n)
+
+
+def fib(n: int):
     if n < 2:
         return 1
-    return fib(n - 1) + fib(n - 2)
+    return _fib(1, 1, 2, n)
 
 
 class Stats:
@@ -62,12 +69,12 @@ def main():
     print(is_palindrome('abccba'))
     print(find_largest_word('a ba bcab bgh'))
     print(count_odds_and_even())
-    print(fib(6))
+    print([fib(i) for i in range(8)])
     print(count_text_stats('a b baubub\n'
                            'eedw wedwd'))
     val = progression_gen(1, 2)
     for i in range(15):
-        print(val)
+        print(next(val))
 
 
 main()
