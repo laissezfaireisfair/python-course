@@ -8,17 +8,27 @@ def matrx_from_lines(lines: [str]) -> [[int]]:
 def mult_matrices(matrix1: [[int]], matrix2: [[int]]) -> [[int]]:
     m = len(matrix1)
     n = len(matrix1[0])
+    if len(matrix2) != n:
+        raise Exception("Bad input: Unable to mult matrices with such sizes")
     k = len(matrix2[0])
 
     mult = []
 
     for i in range(m):
         mult.append([])
-        for j in range(n):
+        for j in range(k):
             s = 0
-            for t in range(k):
+            for t in range(n):
                 s += matrix1[i][t] * matrix2[t][j]
             mult[i].append(s)
+
+    return mult
+
+
+def matrix_to_text(matrix):
+    lines = [' '.join([str(digit) for digit in line]) for line in matrix]
+    text = '\n'.join(lines)
+    return text
 
 
 def main():
@@ -31,7 +41,7 @@ def main():
     result_path = args.resultPath
 
     try:
-        fin = open(source_path)
+        fin = open(source_path, 'r')
         input_lines = fin.readlines()
         fin.close()
     except Exception as ex:
@@ -64,11 +74,10 @@ def main():
         print(f'Multiplication failed: {ex}')
         return
 
-    lines = [' '.join(line) for line in mult]
-    text = '\n'.join(lines)
+    text = matrix_to_text(mult)
 
     try:
-        fout = open(result_path)
+        fout = open(result_path, 'w')
         fout.write(text)
         fout.close()
     except Exception as ex:
