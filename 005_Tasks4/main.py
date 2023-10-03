@@ -1,23 +1,28 @@
 import numpy as np
-import functools as ft
+
+import random as rand
 
 
-def add_occurrence(acc: dict, x: int) -> dict:
-    if x in acc:
-        acc[x] += 1
-    else:
-        acc[x] = 1
-    return acc
+def sort_by_frequency(items: [int]) -> None:
+    unique, counts = np.unique(items, return_counts=True)
+    occurrences = dict(zip(unique, counts))
+    items.sort(key=lambda x: -occurrences[x])
 
 
-def sort_by_frequency(items):
-    occurrences = ft.reduce(add_occurrence, items, {})
-    np.expand_dims(items, 1)
-    for i in items:
-        items[i:1] = occurrences[i]
-    ordered = np.argsort(items, axis=1)
-    return ordered
+example1 = [2, 3, 2, 1, 2, 1]
+print(example1)
+sort_by_frequency(example1)
+print(f'Sorted by frequency: {example1}\n')
 
 
-example1 = np.array([3, 1, 2, 3, 2, 3])
-print(f'{example1} sorted by frequency: {sort_by_frequency(example1)}')
+def get_unique_colors(pic):
+    return np.unique(pic).size
+
+
+h = 10
+w = 20
+example2 = np.array([[rand.randint(0, 255) for _ in range(w)] for _ in range(h)])
+print(example2)
+unique_colors = get_unique_colors(example2)
+print(f'Unique colors: {unique_colors}\n')
+
